@@ -1,6 +1,6 @@
 import { useState } from "react"
 import users from '../users/user.json'
-export function FormLogic({ login, logout }) {
+export function FormLogicLogin({ login, logout }) {
     const [formData, setFormData] = useState({ "email": "", "password": "" })
     const [error, setError] = useState("")
 
@@ -38,3 +38,4 @@ export function FormLogic({ login, logout }) {
 
     return { handleChange, handleSubmit, handleLogout, formData, error }
 }
+
