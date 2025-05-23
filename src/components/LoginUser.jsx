@@ -58,7 +58,7 @@ export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
                     </div>
 
                     <button>
-                        <p>Forgot your password?</p>
+                        <p>Forgot your password??</p>
                     </button>
 
                 </div>
