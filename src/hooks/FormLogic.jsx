@@ -21,7 +21,7 @@ export function FormLogicLogin({ login, logout }) {
 
         const userFound = JSON.parse(localStorage.getItem("users")) || []
 
-        const foundUser = userFound.some(u => u.email === formData.email)
+        const foundUser = userFound.find(u => u.email === formData.email && u.password === formData.password)
 
         if (foundUser) {
             login(foundUser)
@@ -80,6 +80,8 @@ export function FormLogicRegister() {
 
         localStorage.setItem("users", JSON.stringify([...storeUser, newUser]))
 
+        setFormDataR({ email: "", password: "", name: "" })
+        setErrorR("")
 
     }
 
