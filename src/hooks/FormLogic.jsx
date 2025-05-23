@@ -1,7 +1,7 @@
 import { useState } from "react"
-import users from '../users/user.json'
+
 export function FormLogicLogin({ login, logout }) {
-    const [formData, setFormData] = useState({ "email": "", "password": "" })
+    const [formData, setFormData] = useState({ "email": "", "password": "", "name": "" })
     const [error, setError] = useState("")
 
     const handleChange = (e) => {
@@ -19,15 +19,9 @@ export function FormLogicLogin({ login, logout }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const foundUser = users.find((u) => u.email === formData.email && u.password === formData.password)
+        const userFound = JSON.parse(localStorage.getItem("users")) || []
 
-        if (!formData.email) {
-            setError("Email is required")
-            return
-        } else if (!formData.password) {
-            setError("Password is required")
-            return
-        }
+        const foundUser = userFound.some(u => u.email === formData.email)
 
         if (foundUser) {
             login(foundUser)
@@ -39,3 +33,55 @@ export function FormLogicLogin({ login, logout }) {
     return { handleChange, handleSubmit, handleLogout, formData, error }
 }
 
+export function FormLogicRegister() {
+    const [formDataR, setFormDataR] = useState({ "email": "", "password": "", "name": "" })
+    const [errorR, setErrorR] = useState("")
+
+    const handleChangeR = (e) => {
+        const { name, value } = e.target
+        setFormDataR(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleSubmitR = (e) => {
+        e.preventDefault()
+
+        if (!formDataR.email) {
+            setErrorR("Email is required")
+            return
+        } else if (!formDataR.password) {
+            setErrorR("Password is required")
+            return
+        } else if (!formDataR.name) {
+            setErrorR("Name is required")
+            return
+        } else {
+            setErrorR("")
+        }
+
+        const storeUser = JSON.parse(localStorage.getItem("users")) || []
+
+        const userExists = storeUser.find(u => u.email === formDataR.email)
+
+        if (!userExists) {
+            setErrorR("")
+        } else {
+            setErrorR("User already exists")
+            return
+        }
+
+        const newUser = {
+            email: formDataR.email,
+            password: formDataR.password,
+            name: formDataR.name
+        }
+
+        localStorage.setItem("users", JSON.stringify([...storeUser, newUser]))
+
+
+    }
+
+    return { handleChangeR, handleSubmitR, formDataR, errorR }
+}
