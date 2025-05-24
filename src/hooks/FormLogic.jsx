@@ -26,7 +26,7 @@ export function FormLogicLogin({ login, logout }) {
         if (foundUser) {
             login(foundUser)
         } else {
-            setError("Invalid email or password")
+            setError("Ups...Invalid email or password")
         }
     }
 

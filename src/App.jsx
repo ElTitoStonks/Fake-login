@@ -20,7 +20,12 @@ function App() {
         ) :
           (
             <div className='w-full h-dvh mx-auto flex justify-center items-center bg-[#CCC]'>
-              <NoLoginUser error={error} formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+              <NoLoginUser
+                error={error}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
             </div>
           )}
       </main>

@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { EmailIcon, HiddenPasswordIcon, PasswordIcon, ShowPasswordIcon } from "../../../public/Icons"
 import { ShowForgotYourPassword } from "./ShowForgotYourPassword"
+import { ErrorLogin } from "./ErrorLogin"
 
-export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
+export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
     const [ShowPassword, SetShowPassword] = useState(false)
     const [HiddenForgotPass, ShowHiddenForgotPass] = useState(false)
+    const [Register, SetRegister] = useState(true)
 
     const handleClickPass = (e) => {
         e.preventDefault()
@@ -68,8 +70,14 @@ export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
                         <p className="text-sm text-blue-500 font-bold">Forgot your password?</p>
                     </button>
                 </div>
-                <input type="submit" value="Login" />
+                <div>
+                    <input type="submit" value="Login" />
+                    <button onClick={() => SetRegister(!Register)} type="button">
+                        {Register ? <p>Register</p>:<ErrorLogin />}
+                    </button>
+                </div>
             </form >
+
 
             {HiddenForgotPass &&
                 <ShowForgotYourPassword
@@ -78,7 +86,7 @@ export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
                     HiddenForgotPass={HiddenForgotPass}
                     handleForgotYourPass={handleForgotYourPass} />
             }
-            {/* {error && <ErrorLogin error={error} /> */}
+            {error && <p className="text-red-500 px-6">{error}</p>}
 
         </div >
     )
