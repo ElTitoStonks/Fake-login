@@ -1,21 +1,24 @@
-import { useContext } from "react";
-import { FilterContext } from "../context/AuthProvider";
-import { FormLogicRegister } from "../hooks/FormLogic";
-import { EmailIcon, PasswordIcon } from "../../public/Icons"
-
-export function LoginUser({ handleLogout }) {
-    const { user } = useContext(FilterContext)
-    return (
-        <div>
-            <h2>Welcome back, {user.name}</h2>
-            <button onClick={handleLogout}>LogOut</button>
-        </div>
-    )
-}
+import { useState } from "react"
+import { EmailIcon, HiddenPasswordIcon, PasswordIcon, ShowPasswordIcon } from "../../../public/Icons"
+import { ShowForgotYourPassword } from "./ShowForgotYourPassword"
 
 export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
+    const [ShowPassword, SetShowPassword] = useState(false)
+    const [HiddenForgotPass, ShowHiddenForgotPass] = useState(false)
+
+    const handleClickPass = (e) => {
+        e.preventDefault()
+        SetShowPassword(!ShowPassword)
+    }
+
+    const handleForgotYourPass = (e) => {
+        e.preventDefault()
+        ShowHiddenForgotPass(!HiddenForgotPass)
+    }
+
+
     return (
-        <div className="h-[80dvh] w-[90dvw] bg-[#FFFFFF] py-6">
+        <div className="h-[80dvh] w-[90dvw] bg-[#FFFFFF] py-6 ">
             <div className="flex flex-col justify-center items-center mb-6">
                 <h2 className="text-black font-bold text-4xl text-center">Welcome back</h2>
                 <p className="text-gray-600">Please sing in to your account</p>
@@ -41,8 +44,12 @@ export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
                     <label id="password">Password</label>
                     <div className="relative flex items-center">
                         <span className="absolute px-2"><PasswordIcon /></span>
+                        <button onClick={handleClickPass} className="absolute right-0 flex justify-end px-4">
+                            {ShowPassword ? <ShowPasswordIcon /> : <HiddenPasswordIcon />}
+                        </button>
+
                         <input
-                            type="password"
+                            type={ShowPassword ? "text" : "password"}
                             placeholder="Password"
                             name='password'
                             onChange={handleChange}
@@ -51,39 +58,28 @@ export function NoLoginUser({ handleSubmit, handleChange, formData, error }) {
                         />
                     </div>
                 </div>
-                <div>
-                    <div>
+                <div className="flex justify-between">
+                    <div className="flex gap-1">
                         <input type="checkbox" id="remember" />
                         <label htmlFor="remember">Remember me</label>
                     </div>
 
-                    <button>
-                        <p>Forgot your password??</p>
+                    <button onClick={handleForgotYourPass} >
+                        <p className="text-sm text-blue-500 font-bold">Forgot your password?</p>
                     </button>
-
                 </div>
                 <input type="submit" value="Login" />
-            </form>
-            {error && <ErrorLogin error={error} />}
-        </div>
-    )
-}
+            </form >
 
-function ErrorLogin({ error }) {
-    const { errorR, formDataR, handleChangeR, handleSubmitR } = FormLogicRegister()
+            {HiddenForgotPass &&
+                <ShowForgotYourPassword
+                    ShowPassword={ShowPassword}
+                    handleClickPass={handleClickPass}
+                    HiddenForgotPass={HiddenForgotPass}
+                    handleForgotYourPass={handleForgotYourPass} />
+            }
+            {/* {error && <ErrorLogin error={error} /> */}
 
-    return (
-        <div>
-            <p>{error}</p>
-            <h2>You're new here?</h2>
-            <form onSubmit={handleSubmitR}>
-                <input type="email" name="email" placeholder="Email" onChange={handleChangeR} value={formDataR.email} />
-                <input type="password" name="password" placeholder="Password" onChange={handleChangeR} value={formDataR.password} />
-                <input type="text" name="name" placeholder="Name" onChange={handleChangeR} value={formDataR.name} />
-                <input type="submit" value="Register" />
-            </form>
-            {errorR && <p style={{ color: 'red' }}>{errorR}</p>}
-
-        </div>
+        </div >
     )
 }
