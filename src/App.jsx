@@ -3,7 +3,8 @@ import './App.css'
 import { Header } from './components/Header'
 import { FilterContext } from './context/AuthProvider'
 import { FormLogicLogin, } from './hooks/FormLogic'
-import { LoginUser, NoLoginUser } from './components/LoginUser'
+import { LoginUser } from './components/Login/LoginUser'
+import { NoLoginUser } from './components/Login/NoLoginUser'
 
 function App() {
   const { user, login, logout } = useContext(FilterContext)
@@ -19,7 +20,12 @@ function App() {
         ) :
           (
             <div className='w-full h-dvh mx-auto flex justify-center items-center bg-[#CCC]'>
-              <NoLoginUser error={error} formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+              <NoLoginUser
+                error={error}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
             </div>
           )}
       </main>
