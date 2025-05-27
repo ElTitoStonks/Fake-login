@@ -73,10 +73,13 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
                 <div>
                     <input type="submit" value="Login" />
                     <button onClick={() => SetRegister(!Register)} type="button">
-                        {Register ? <p>Register</p>:<ErrorLogin />}
+                        <p>Register</p>
                     </button>
                 </div>
+                <span className={`text-white px-6 w-full font-bold p-2 rounded-xl bg-red-600 transition-all ease-in-out transform
+                ${error ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}><p>{error}</p></span>
             </form >
+            {Register ? null : <ErrorLogin setRegister={SetRegister} register={Register} />}
 
 
             {HiddenForgotPass &&
@@ -86,7 +89,6 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
                     HiddenForgotPass={HiddenForgotPass}
                     handleForgotYourPass={handleForgotYourPass} />
             }
-            {error && <p className="text-red-500 px-6">{error}</p>}
 
         </div >
     )

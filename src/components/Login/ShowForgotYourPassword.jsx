@@ -1,20 +1,24 @@
 import { EmailIcon, HiddenPasswordIcon, PasswordIcon, ShowPasswordIcon } from "../../../public/Icons";
+import { ChangePassword } from "../../hooks/ChangePasswor";
 
 export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleForgotYourPass }) {
+    const { handleChangePassword, handleSubmitChangePassword, formDataChange, errorChange, successChange } = ChangePassword()
 
     return (
         <div className="fixed w-[92dvw] h-[82dvh] top-16 left-4 bg-[#FFFFFF] flex flex-col p-6">
             <h2 className="text-black font-bold text-3xl text-center py-2 mb-4">Reset your password</h2>
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleSubmitChangePassword}>
                 <div>
-                    <label id="emailveri">Correo de verificación</label>
+                    <label id="email">Correo de verificación</label>
                     <div className="relative flex items-center">
                         <span className="absolute px-2"><EmailIcon /></span>
                         <input
-                            id="emailveri"
+                            id="email"
                             type="email"
                             placeholder="example@example.com"
-                            name='emailveri'
+                            name='email'
+                            onChange={handleChangePassword}
+                            value={formDataChange.email}
                             className="text-gray-600 border border-gray-300 w-full h-10 px-2 pl-7 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -22,7 +26,7 @@ export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleFo
 
                 <div>
 
-                    <label id="passwordveri">Nueva contraseña</label>
+                    <label id="password">Nueva contraseña</label>
                     <div className="relative flex items-center">
                         <span className="absolute px-2"><PasswordIcon /></span>
                         <button onClick={handleClickPass} className="absolute right-0 flex justify-end px-4">
@@ -32,7 +36,9 @@ export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleFo
                         <input
                             type={ShowPassword ? "text" : "password"}
                             placeholder="Password"
-                            name='passwordveri'
+                            name='password'
+                            onChange={handleChangePassword}
+                            value={formDataChange.password}
                             className="text-gray-600 border border-gray-300 w-full h-10 px-2 pl-7 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -49,6 +55,12 @@ export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleFo
                         onClick={handleForgotYourPass}
                     >Cancel</button>
                 </div>
+                <span className={`w-full  text-white font-bold p-2 rounded-xl mt-4 transition-all ease-in-out transform
+                ${errorChange || successChange ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 "}
+                ${errorChange ? "bg-red-600" : "bg-green-600"}
+            `}>
+                    <p>{errorChange || successChange}</p>
+                </span>
             </form>
         </div>
     )

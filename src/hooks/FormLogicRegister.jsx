@@ -1,41 +1,9 @@
 import { useState } from "react"
 
-export function FormLogicLogin({ login, logout }) {
-    const [formData, setFormData] = useState({ "email": "", "password": "", "name": "" })
-    const [error, setError] = useState("")
-
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    const handleLogout = () => {
-        logout()
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        const userFound = JSON.parse(localStorage.getItem("users")) || []
-
-        const foundUser = userFound.find(u => u.email === formData.email && u.password === formData.password)
-
-        if (foundUser) {
-            login(foundUser)
-        } else {
-            setError("Ups...Invalid email or password")
-        }
-    }
-
-    return { handleChange, handleSubmit, handleLogout, formData, error }
-}
-
 export function FormLogicRegister() {
     const [formDataR, setFormDataR] = useState({ "email": "", "password": "", "name": "" })
     const [errorR, setErrorR] = useState("")
+    const [sucessR, setSuccessR] = useState("")
 
     const handleChangeR = (e) => {
         const { name, value } = e.target
@@ -67,8 +35,15 @@ export function FormLogicRegister() {
 
         if (!userExists) {
             setErrorR("")
+            setSuccessR("User created successfully")
+            setTimeout(() => {
+                setSuccessR("")
+            }, 3000)
         } else {
             setErrorR("User already exists")
+            setTimeout(() => {
+                setErrorR("")
+            }, 3000)
             return
         }
 
@@ -85,5 +60,5 @@ export function FormLogicRegister() {
 
     }
 
-    return { handleChangeR, handleSubmitR, formDataR, errorR }
+    return { handleChangeR, handleSubmitR, formDataR, errorR, sucessR }
 }
