@@ -36,6 +36,7 @@ export function FormLogicLogin({ login, logout }) {
 export function FormLogicRegister() {
     const [formDataR, setFormDataR] = useState({ "email": "", "password": "", "name": "" })
     const [errorR, setErrorR] = useState("")
+    const [sucessR, setSuccessR] = useState("")
 
     const handleChangeR = (e) => {
         const { name, value } = e.target
@@ -67,8 +68,15 @@ export function FormLogicRegister() {
 
         if (!userExists) {
             setErrorR("")
+            setSuccessR("User created successfully")
+            setTimeout(() => {
+                setSuccessR("")
+            }, 3000)
         } else {
             setErrorR("User already exists")
+            setTimeout(() => {
+                setErrorR("")
+            }, 3000)
             return
         }
 
@@ -85,5 +93,5 @@ export function FormLogicRegister() {
 
     }
 
-    return { handleChangeR, handleSubmitR, formDataR, errorR }
+    return { handleChangeR, handleSubmitR, formDataR, errorR, sucessR }
 }

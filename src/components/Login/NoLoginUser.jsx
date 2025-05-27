@@ -73,10 +73,11 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
                 <div>
                     <input type="submit" value="Login" />
                     <button onClick={() => SetRegister(!Register)} type="button">
-                        {Register ? <p>Register</p>:<ErrorLogin />}
+                        <p>Register</p>
                     </button>
                 </div>
             </form >
+            {Register ? null : <ErrorLogin />}
 
 
             {HiddenForgotPass &&
