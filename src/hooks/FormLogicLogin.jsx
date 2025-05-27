@@ -27,6 +27,9 @@ export function FormLogicLogin({ login, logout }) {
             login(foundUser)
         } else {
             setError("Ups...Invalid email or password")
+            setTimeout(() => {
+                setError("")
+            }, 3000);
         }
     }
 

@@ -1,21 +1,64 @@
+import { useState } from "react"
+
 export function ChangePassword() {
-    const [formData, setFormData] = useState({ "email": "", "password": "" })
-    const [error, setError] = useState("")
-    const [success, setSuccess] = useState("")
+    const [formDataChange, setFormDataChange] = useState({ "email": "", "password": "" })
+    const [errorChange, setErrorChange] = useState("")
+    const [successChange, setSuccessChange] = useState("")
 
     const handleChangePassword = (e) => {
         const { name, value } = e.target
-        setFormData(prev => ({
+        setFormDataChange(prev => ({
             ...prev,
             [name]: value
         }))
     }
 
-    let getEmails = JSON.parse(localStorage.getItem("email")) || []
+    const handleSubmitChangePassword = (e) => {
+        e.preventDefault()
 
+        let getEmails = JSON.parse(localStorage.getItem("users")) || []
 
+        // let getPasswords = JSON.parse(localStorage.getItem("password")) || []
 
-    return (
+        const checkEmailExists = getEmails.find(email => email.email === formDataChange.email)
 
-    )
+        if (!checkEmailExists) {
+            setErrorChange("This email does not exist")
+            return
+        }
+
+        if (!formDataChange.email) {
+            setErrorChange("Email is required")
+            setTimeout(() => {
+                setErrorChange("")
+            }, 3000)
+            return
+        } else if (!formDataChange.password) {
+            setErrorChange("Password is required")
+            setTimeout(() => {
+                setErrorChange("")
+            }, 3000)
+            return
+        } else {
+            setErrorChange("")
+            setSuccessChange("Password changed successfully")
+            setTimeout(() => {
+                setSuccessChange("")
+            }, 3000)
+        }
+
+        const updateUser = getEmails.map(user =>
+            user.email === formDataChange.email
+                ? { ...user, password: formDataChange.password }
+                : user
+        )
+
+        localStorage.setItem("users", JSON.stringify(updateUser))
+
+        setFormDataChange({ email: "", password: "" })
+
+    }
+
+    return { handleChangePassword, handleSubmitChangePassword, formDataChange, setFormDataChange, errorChange, setErrorChange, successChange, setSuccessChange }
+
 }
