@@ -5,7 +5,7 @@ export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleFo
     const { handleChangePassword, handleSubmitChangePassword, formDataChange, errorChange, successChange } = ChangePassword()
 
     return (
-        <div className="fixed w-[92dvw] h-[82dvh] top-16 left-4 bg-[#FFFFFF] flex flex-col p-6">
+        <div className="fixed w-[92dvw] h-[82dvh] top-16 left-4 bg-[#FFFFFF] flex flex-col p-6 rounded-xl">
             <h2 className="text-black font-bold text-3xl text-center py-2 mb-4">Reset your password</h2>
             <form className="flex flex-col gap-4" onSubmit={handleSubmitChangePassword}>
                 <div>
@@ -45,13 +45,13 @@ export function ShowForgotYourPassword({ handleClickPass, ShowPassword, handleFo
                 </div>
                 <div className="flex justify-center gap-6">
                     <input
-                        className="bg-blue-400 w-24 h-10 rounded-xl font-bold text-sm border hover:bg-[#FFF] transition-all duration-500 ease-in-out"
+                        className="bg-blue-300 w-24 h-10 rounded-xl  text-sm border hover:bg-[#FFF] transition-all duration-500 ease-in-out"
                         type="submit"
                         value="Change" />
 
                     <button
                         type="button"
-                        className="w-24 h-10 rounded-xl font-bold text-sm border hover:bg-blue-400 hover:text-white transition-all duration-500 ease-in-out"
+                        className="w-24 h-10 rounded-xl text-sm border hover:bg-blue-300 hover:text-white transition-all duration-500 ease-in-out"
                         onClick={handleForgotYourPass}
                     >Cancel</button>
                 </div>
