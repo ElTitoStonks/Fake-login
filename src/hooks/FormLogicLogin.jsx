@@ -31,6 +31,8 @@ export function FormLogicLogin({ login, logout }) {
                 setError("")
             }, 3000);
         }
+
+        setFormData({ "email": "", "password": "", "name": "" })
     }
 
     return { handleChange, handleSubmit, handleLogout, formData, error }

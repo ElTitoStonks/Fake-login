@@ -20,7 +20,7 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
 
 
     return (
-        <div className="h-[80dvh] w-[90dvw] bg-[#FFFFFF] py-6 ">
+        <div className="h-[80dvh] w-[90dvw] bg-[#FFFFFF] py-6 rounded-xl">
             <div className="flex flex-col justify-center items-center mb-6">
                 <h2 className="text-black font-bold text-4xl text-center">Welcome back</h2>
                 <p className="text-gray-600">Please sing in to your account</p>
@@ -70,9 +70,12 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
                         <p className="text-sm text-blue-500 font-bold">Forgot your password?</p>
                     </button>
                 </div>
-                <div>
-                    <input type="submit" value="Login" />
-                    <button onClick={() => SetRegister(!Register)} type="button">
+                <div className="flex justify-center gap-5">
+                    <input type="submit" value="Login" className="bg-blue-300 p-4 rounded-2xl border" />
+                    <button
+                        onClick={() => SetRegister(!Register)}
+                        type="button"
+                        className="p-4 border rounded-2xl">
                         <p>Register</p>
                     </button>
                 </div>
