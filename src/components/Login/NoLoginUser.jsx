@@ -77,7 +77,7 @@ export function NoLoginUser({ formData, error, handleChange, handleSubmit }) {
                     </button>
                 </div>
             </form >
-            {Register ? null : <ErrorLogin />}
+            {Register ? null : <ErrorLogin setRegister={SetRegister} register={Register} />}
 
 
             {HiddenForgotPass &&

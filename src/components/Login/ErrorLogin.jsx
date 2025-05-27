@@ -1,8 +1,11 @@
-import { FormLogicRegister } from "../../hooks/FormLogic"
+import { FormLogicRegister } from "../../hooks/FormLogicRegister"
 // Use this component for ErrorLogin and newAccount
-export function ErrorLogin({ error }) {
+export function ErrorLogin({ error, setRegister, register }) {
     const { errorR, formDataR, handleChangeR, handleSubmitR, sucessR } = FormLogicRegister()
 
+    const handleCancel = () => {
+        setRegister(!register)
+    }
     return (
         <div className="fixed w-[92dvw] h-[82dvh] top-16 left-4 bg-[#FFFFFF] flex flex-col p-6">
             <p className="text-red-500 text-sm">{error}</p>
@@ -41,7 +44,13 @@ export function ErrorLogin({ error }) {
                     <input type="text" name="name" placeholder="Pedro" onChange={handleChangeR} value={formDataR.name}
                         className="text-gray-600 border border-gray-300 w-full h-10 px-2 pl-7 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <input type="submit" value="Register" />
+                    <input
+                        type="submit"
+                        value="Register"
+                        className="bg-blue-400 w-24 h-10 rounded-xl text-sm border hover:bg-[#FFF] transition-all duration-500 ease-in-out"
+                    />
+
+                    <button type="button" onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
             {/* Error */}
